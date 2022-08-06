@@ -1,2 +1,2 @@
 <?php
-$koneksi = mysqli_connect("localhost", "root", "", "db_kitab");
+$conn = mysqli_connect("localhost", "root", "", "db_kitab");

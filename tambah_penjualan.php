@@ -1,18 +1,19 @@
 <?php
-include 'header.php';
 include 'koneksi.php';
+include 'header.php';
+
 $tgl = date('d');
 $mou = date('m');
-$kodektb = 'KTB-' . rand(0, 999999);
-?>
+$kodepj = 'PJ-' . $tgl . '.' . $mou . '.' . rand(0, 999999);
 
+?>
 <div class="page-heading">
-    <h1 class="page-title">Tambah Kitab</h1>
+    <h1 class="page-title">Tambah Penjualan</h1>
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="index.html"><i class="la la-home font-20"></i></a>
         </li>
-        <li class="breadcrumb-item">Tambah Kitab</li>
+        <li class="breadcrumb-item">Tambah Penjualan</li>
     </ol>
 </div>
 <div class="page-content fade-in-up">
@@ -20,7 +21,7 @@ $kodektb = 'KTB-' . rand(0, 999999);
         <div class="col-md-6">
             <div class="ibox">
                 <div class="ibox-head">
-                    <div class="ibox-title">Tambah Kitab </div>
+                    <div class="ibox-title">Tambah Penjualan </div>
                     <div class="ibox-tools">
                         <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                         <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
@@ -35,29 +36,32 @@ $kodektb = 'KTB-' . rand(0, 999999);
 
                         <div class="form-group">
                             <label>Kode Jual</label>
-                            <input class="form-control" name="kd_kitab" type="text" value="<?= $kodektb; ?>" readonly>
+                            <input class="form-control" name="kd_jual" type="text" value="<?= $kodepj; ?>" readonly>
                         </div>
                         <div class="form-group">
-                            <label>Nama</label>
-                            <input class="form-control" name="nama" type="text" placeholder="Masukkan Nama">
+                            <label>Nis</label>
+                            <input class="form-control" name="nis" type="text" placeholder="Masukkan Nis">
                         </div>
                         <div class="form-group">
-                            <label>Stok</label>
-                            <input class="form-control" name="stok" type="text" placeholder="Masukkan Stok">
+                            <label>Tanggal</label>
+                            <input class="form-control" name="tanggal" type="date" placeholder="Masukkan Tanggal">
                         </div>
                         <div class="form-group">
-                            <label>Harga Kolak</label>
-                            <input class="form-control" name="harga_kolak" type="text" placeholder="Masukkan Harga Kolak">
+                            <label>Jumlah Jual</label>
+                            <input class="form-control" name="jml_jual" type="text" placeholder="Masukkan Jumlah Jual">
                         </div>
                         <div class="form-group">
-                            <label>Harga Kolak</label>
-                            <input class="form-control" name="harga_jual" type="text" placeholder="Masukkan Harga Jual">
+                            <label>Total</label>
+                            <input class="form-control" name="total" type="text" placeholder="Masukkan Total">
                         </div>
                         <div class="form-group">
-                            <label>Gambar</label>
-                            <input class="form-control" name="gambar" type="file" placeholder="Upload Gambar ">
+                            <label>Bayar</label>
+                            <input class="form-control" name="bayar" type="text" placeholder="Masukkan Bayar">
                         </div>
-
+                        <div class="form-group">
+                            <label>Kembali</label>
+                            <input class="form-control" name="kembali" type="text" placeholder="Masukkan Kembali">
+                        </div>
                         <div class="form-group">
                             <button type="submit" value="submit" name="simpan" class="btn btn-default">Submit</button>
                         </div>
@@ -74,18 +78,19 @@ $kodektb = 'KTB-' . rand(0, 999999);
 
 <?php
 if (isset($_POST['simpan'])) {
-    $kd_kitab = $_POST['kd_kitab'];
-    $nama = $_POST['nama'];
-    $stok = $_POST['stok'];
-    $harga_kolak = $_POST['harga_kolak'];
-    $harga_jual = $_POST['harga_jual'];
-    $gambar = $_POST['gambar'];
-    $sql = mysqli_query($conn, "INSERT INTO kitab VALUES('','$kd_kitab','$nama','$stok','$harga_kolak','$harga_jual','$gambar')");
+    $kd_jual = $_POST['kd_jual'];
+    $nis = $_POST['nis'];
+    $tanggal = $_POST['tanggal'];
+    $jml_jual = $_POST['jml_jual'];
+    $total = $_POST['total'];
+    $bayar = $_POST['bayar'];
+    $kembali = $_POST['kembali'];
+    $sql = mysqli_query($conn, "INSERT INTO penjualan VALUES('','$kd_jual','$nis','$tanggal','$jml_jual','$total','$bayar','$kembali')");
     if ($sql) {
 ?>
         <script type="text/javascript">
             alert("Data Berhasil Di Simpan");
-            window.location.href = "kitab.php";
+            window.location.href = "penjualan.php";
         </script>
 <?php
     }

@@ -225,7 +225,7 @@
                     </li>
 
                     <li>
-                        <a href="calendar.html"><i class="sidebar-item-icon fa fa-money"></i>
+                        <a href="penjualan.php"><i class="sidebar-item-icon fa fa-money"></i>
                             <span class="nav-label">Penjualan</span>
                         </a>
                     </li>
