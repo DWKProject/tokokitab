@@ -34,7 +34,7 @@
                     <?php
                     $no = 1;
                     include 'koneksi.php';
-                    $sql = mysqli_query($conn, "SELECT * FROM kitab");
+                    $sql = mysqli_query($koneksi, "SELECT * FROM kitab");
                     while ($data = mysqli_fetch_assoc($sql)) {
                     ?>
                         <tr>

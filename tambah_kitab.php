@@ -1,11 +1,12 @@
+<?php include 'koneksi.php'; ?>
 <?php include 'header.php'; ?>
 <div class="page-heading">
-    <h1 class="page-title">Basic Form</h1>
+    <h1 class="page-title">Tambah Kitab</h1>
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="index.html"><i class="la la-home font-20"></i></a>
         </li>
-        <li class="breadcrumb-item">Basic Form</li>
+        <li class="breadcrumb-item">Tambah Kitab</li>
     </ol>
 </div>
 <div class="page-content fade-in-up">
@@ -13,7 +14,7 @@
         <div class="col-md-6">
             <div class="ibox">
                 <div class="ibox-head">
-                    <div class="ibox-title">Basic form</div>
+                    <div class="ibox-title">Tambah Kitab </div>
                     <div class="ibox-tools">
                         <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                         <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
@@ -24,35 +25,34 @@
                     </div>
                 </div>
                 <div class="ibox-body">
-                    <form action="" method="post">
+                    <form action="" method="POST">
 
                         <div class="form-group">
                             <label>Kode Kitab</label>
-                            <input class="form-control" type="text" placeholder="Masukkan Kode" name="kd_kitab">
+                            <input class="form-control" name="kd_kitab" type="text" placeholder="Masukkan Kode">
                         </div>
                         <div class="form-group">
                             <label>nama</label>
-                            <input class="form-control" type="text" placeholder="Masukkan Nama" name="nama">
+                            <input class="form-control" name="nama" type="text" placeholder="Masukkan Nama">
                         </div>
                         <div class="form-group">
                             <label>Stok</label>
-                            <input class="form-control" type="text" placeholder="Masukkan Jumlah Stok" name="stok">
+                            <input class="form-control" name="stok" type="text" placeholder="Masukkan Jumlah Stok">
                         </div>
                         <div class="form-group">
                             <label>Harga Kolak</label>
-                            <input class="form-control" type="text" placeholder="Masukkan Harga Kolak" name="harga_kolak">
+                            <input class="form-control" name="harga_kolak" type="text" placeholder="Masukkan Harga Kolak">
                         </div>
                         <div class="form-group">
                             <label>Harga Jual</label>
-                            <input class="form-control" type="text" placeholder="Masukkan Harga Jual" name="harga jual">
+                            <input class="form-control" name="harga_jual" type="text" placeholder="Masukkan Harga Jual">
                         </div>
                         <div class="form-group">
-                            <label class="ui-checkbox">
-                                <input type="checkbox">
-                                <span class="input-span"></span>Remamber me</label>
+                            <label>Gambar</label>
+                            <input class="form-control" name="gambar" type="text" placeholder="Masukkan Harga Jual">
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-default" type="submit" value="submit" name="simpan">Submit</button>
+                            <button type="submit" name="simpan" class="btn btn-default">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -64,3 +64,23 @@
 
 </div>
 <?php include 'footer.php'; ?>
+
+<?php
+if (isset($_POST['simpan'])) {
+    $kd_kitab = $_POST['kd_kitab'];
+    $nama = htmlspecialchars(mysqli_real_escape_string($koneksi, $_POST['nama']));
+    $stok = $_POST['stok'];
+    $harga_kolak = $_POST['harga_kolak'];
+    $harga_jual = $_POST['harga_jual'];
+    $gambar = $_POST['gambar'];
+    $sql = mysqli_query($koneksi, "INSERT INTO kitab VALUES('','$kd_kitab','$nama','$stok','$harga_kolak','$harga_jual')");
+    if ($sql) {
+?>
+        <script type="text/javascript">
+            alert("Data Berhasil Di Simpan");
+            window.location.href = "kitab.php";
+        </script>
+<?php
+    }
+}
+?>
