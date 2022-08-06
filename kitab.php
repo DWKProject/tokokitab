@@ -45,7 +45,10 @@
                             <td><?= $data['harga_kolak']; ?></td>
                             <td><?= $data['harga_jual']; ?></td>
                             <td><?= $data['gambar']; ?></td>
-                            <td></td>
+                            <td>
+                                <a href="edit_admin.php?id=<?= $data['id_admin']; ?>" class="btn btn-warning btn-circle"><i class="fa fa-eye"></i></a>
+                                <a href="<?= 'hapus_kitab.php?id_kitab=' . $data['id_kitab'] ?>" onclick="return confirm('Yakin Menghapus Data Ini?')" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

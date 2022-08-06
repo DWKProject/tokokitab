@@ -52,7 +52,7 @@
                             <input class="form-control" name="gambar" type="text" placeholder="Masukkan Harga Jual">
                         </div>
                         <div class="form-group">
-                            <button type="submit" name="simpan" class="btn btn-default">Submit</button>
+                            <button type="submit" value="submit" name="simpan" class="btn btn-default">Submit</button>
                         </div>
                     </form>
                 </div>
