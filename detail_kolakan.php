@@ -2,35 +2,200 @@
 include 'koneksi.php';
 include 'header.php';
 ?>
-<h3><span class="glyphicon glyphicon-briefcase"></span> Detail Kolakan</h3>
-<a class="btn" href="kolakan.php"><span class="glyphicon glyphicon-arrow-left"></span> Kembali</a>
 
 <?php
-$id_kolakan = mysql_real_escape_string($_GET['id']);
-
-
 $sql = mysqli_query($conn, "SELECT * FROM kolakan");
 while ($data = mysqli_fetch_assoc($sql)) {
 ?>
-    <table class="table">
-        <tr>
-            <td>Kode Kolakan</td>
-            <td><?= $data['kd_kolakan']; ?></td>
-        </tr>
-        <tr>
-            <td>Jumlah Kolakan</td>
-            <td><?= $data['jml_kolakan']; ?></td>
-        </tr>
-        <tr>
-            <td>Total</td>
-            <td><?= $data['total']; ?></td>
-        </tr>
-        <tr>
-            <td>Tanggal</td>
-            <td><?= $data['tanggal']; ?></td>
-        </tr>
-    </table>
+
+    <!-- START PAGE CONTENT-->
+    <div class="page-heading">
+        <h1 class="page-title">Detail Kolakan</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html"><i class="la la-home font-20"></i></a>
+            </li>
+            <li class="breadcrumb-item">Detail Kolakan</li>
+        </ol>
+    </div>
+    <div class="page-content fade-in-up">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">Kolakan</div>
+                        <div class="ibox-tools">
+                            <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item">option 1</a>
+                                <a class="dropdown-item">option 2</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Kode Kolakan</label>
+                                <input class="form-control" type="text" value="<?= $data['kd_kolakan']; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Jumlah</label>
+                                <input class="form-control" type="text" value="<?= $data['jml_kolakan']; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Total</label>
+                                <input class="form-control" type="text" value="<?= $data['total']; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal</label>
+                                <input class="form-control" type="date" value="<?= $data['tanggal']; ?>">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">Pembayaran</div>
+                        <div class="ibox-tools">
+                            <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                            <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-body">
+                        <form class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Jumlah Kolakan</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" value="<?= $data['jml_kolakan']; ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Total</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" value="<?= $data['total']; ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10 ml-sm-auto">
+                                    <label class="ui-checkbox ui-checkbox-gray">
+                                        <input type="checkbox">
+                                        <span class="input-span"></span>Remamber me</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-10 ml-sm-auto">
+                                    <button class="btn btn-info" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">Kolakan</div>
+                    </div>
+                    <div class="ibox-body">
+                        <table class="table table-bordered">
+                            <thead class="thead-default">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kitab</th>
+                                    <th>Jumlah</th>
+                                    <th>Total</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                $sql = mysqli_query($conn, "SELECT d.id_dtk, d.jumlah,d.total ,  k. nama FROM detail_kolakan b JOIN kitab k ON k.kd_kitab = k.kd_kitab");
+                                while ($row = mysqli_fetch_assoc($sql)) {
+
+                                ?>
+                                    <tr>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $data['nama']; ?></td>
+                                        <td><?= $data['jumlah']; ?></td>
+                                        <td><?= $data['total']; ?></td>
+                                        <td>
+                                            <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil font-14"></i></button>
+                                            <button class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash font-14"></i></button>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    $no++;
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">Data Kitab</div>
+                        <div class="ibox-tools">
+                            <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                            <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-body">
+                        <form class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Pilih</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2_demo_1" name="kd_kitab" id="selectExt" required>
+                                        <?php
+                                        $sql = mysqli_query($conn, "SELECT * FROM kitab");
+                                        while ($row = mysqli_fetch_array($sql)) { ?>
+                                            <option value="<?= $row['kd_kitab']; ?>"><?= $row['nama']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Jumlah</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="number" placeholder="Jumlah" name="jumlah">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12 ml-sm-auto">
+                                    <button class="btn btn-info" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
+
+<?php include 'footer.php'; ?>
 <?php
+if (isset($_POST['simpan'])) {
+    $nama = $_POST['nama'];
+    $stok = $_POST['jumlah'];
+    $sql = mysqli_query($conn, "INSERT INTO detail_kolakan VALUES('','$nama','$jumlah')");
+    if ($sql) {
+?>
+        <script type="text/javascript">
+            alert("Data Berhasil Di Simpan");
+            window.location.href = "detail_kolakan.php";
+        </script>
+<?php
+    }
 }
 ?>
-<?php include 'footer.php'; ?>
