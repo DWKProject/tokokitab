@@ -156,9 +156,11 @@
 <script src="assets/js/app.min.js" type="text/javascript"></script>
 <!-- PAGE LEVEL SCRIPTS-->
 <script src="./assets/vendors/DataTables/datatables.min.js" type="text/javascript"></script>
+<script src="./assets/vendors/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
 <script src="./assets/js/scripts/dashboard_1_demo.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function() {
+        $('#selectExt').select2();
         $('#example-table').DataTable({
             pageLength: 10,
             //"ajax": './assets/demo/data/table_data.json',

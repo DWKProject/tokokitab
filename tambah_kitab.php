@@ -41,16 +41,13 @@ $kodektb = 'KTB-' . rand(0, 999999);
                             <label>Nama</label>
                             <input class="form-control" name="nama" type="text" placeholder="Masukkan Nama">
                         </div>
-                        <div class="form-group">
-                            <label>Stok</label>
-                            <input class="form-control" name="stok" type="text" placeholder="Masukkan Stok">
-                        </div>
+
                         <div class="form-group">
                             <label>Harga Kolak</label>
                             <input class="form-control" name="harga_kolak" type="text" placeholder="Masukkan Harga Kolak">
                         </div>
                         <div class="form-group">
-                            <label>Harga Kolak</label>
+                            <label>Harga Jual</label>
                             <input class="form-control" name="harga_jual" type="text" placeholder="Masukkan Harga Jual">
                         </div>
                         <div class="form-group">

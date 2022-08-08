@@ -78,7 +78,7 @@ if (isset($_POST['edit'])) {
     $harga_kolak = $_POST['harga_kolak'];
     $harga_jual = $_POST['harga_jual'];
     $gambar = $_POST['gambar'];
-    $sql = mysqli_query($conn, "UPDATE kitab SET kd_kitab = '$kd_kitab',nama = '$nama',stok = '$stok',
+    $sql = mysqli_query($conn, "UPDATE kitab SET nama = '$nama',stok = '$stok',
     harga_kolak = '$harga_kolak', harga_jual = '$harga_jual', gambar = '$gambar' WHERE id_kitab = $id_kitab");
 
     if ($sql) {
