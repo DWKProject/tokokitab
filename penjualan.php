@@ -1,4 +1,8 @@
-<?php include 'header.php'; ?>
+<?php
+include 'header.php';
+
+
+?>
 <div class="page-heading">
     <h1 class="page-title">Data Penjualan</h1>
     <ol class="breadcrumb">
@@ -22,6 +26,7 @@
                         <th>No</th>
                         <th>Kode Jual</th>
                         <th>Nis</th>
+                        <th>Nama</th>
                         <th>Tanggal</th>
                         <th>Jumlah Jual</th>
                         <th>Total</th>
@@ -35,20 +40,22 @@
                     <?php
                     $no = 1;
                     include 'koneksi.php';
-                    $sql = mysqli_query($conn, "SELECT * FROM penjualan");
+                    $sql = mysqli_query($conn, "SELECT * FROM tb_santri JOIN penjualan ON tb_santri.nis = penjualan.nis");
                     while ($data = mysqli_fetch_assoc($sql)) {
                     ?>
                         <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= $data['kd_jual']; ?></td>
-                            <td><?= $data['nis']; ?></td>
-                            <td><?= $data['tanggal']; ?></td>
-                            <td><?= $data['jml_jual']; ?></td>
-                            <td><?= $data['total']; ?></td>
-                            <td><?= $data['bayar']; ?></td>
-                            <td><?= $data['kembali']; ?></td>
+                            <td><?= $no++ ?></td>
+                            <td><?= $data['kd_jual'] ?></td>
+                            <td><?= $data['nis'] ?></td>
+                            <td><?= $data['nama'] ?></td>
+                            <td><?= $data['tanggal'] ?></td>
+                            <td><?= $data['jml_jual'] ?></td>
+                            <td><?= $data['total'] ?></td>
+                            <td><?= $data['bayar'] ?></td>
+                            <td><?= $data['kembali'] ?></td>
                             <td>
-                                <a class="btn btn-danger btn-sm" href="hapus_penjualan.php?id=<?= $data['id_jual']; ?>" onclick="return confirm('Yakin Akan Menghapus Data Ini ?')"><i class="fa fa-trash"></i> Delete</a>
+                                <a href="detail_penjualan.php?id=<?= $data['id_jual']; ?>" class="btn btn-warning btn-rounded center"><i class="fa fa-pencil"> </i></a>
+                                <a href="hapus_penjualan.php?id=<?= $data['id_jual']; ?>" onclick="return confirm('Yakin Akan Menghapus Data Ini ?')" class="btn btn-danger btn-rounded "><i class="fa fa-trash"> </i></a>
                             </td>
                         </tr>
                     <?php } ?>

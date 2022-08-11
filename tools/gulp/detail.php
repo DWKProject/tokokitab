@@ -98,7 +98,7 @@ $kd_kolakan = $data['kd_kolakan'];
                         <tbody>
                             <?php
                             $no = 1;
-                            $sql = mysqli_query($conn, "SELECT d.id_dtk, d.jumlah ,d.total , k.nama FROM detail_kolakan d JOIN kitab k ON d.kd_kitab = k.kd_kitab WHERE d.kd_kolakan = '$kd_kolakan' ");
+                            $sql = mysqli_query($conn, "SELECT d.id_dtk, d.jumlah,d.total , k.nama FROM detail_kolakan d JOIN kitab k ON d.kd_kitab = k.kd_kitab WHERE d.kd_kolakan = '$kd_kolakan' ");
                             while ($data = mysqli_fetch_assoc($sql)) {
 
                             ?>

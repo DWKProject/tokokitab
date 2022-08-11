@@ -36,31 +36,22 @@ $kodepj = 'PJ-' . $tgl . '.' . $mou . '.' . rand(0, 999999);
 
                         <div class="form-group">
                             <label>Kode Jual</label>
-                            <input class="form-control" name="kd_jual" type="text" value="<?= $kodepj; ?>" readonly>
+                            <input class="form-control select2_demo_1" name="kd_jual" type="text" value="<?= $kodepj; ?>" readonly>
                         </div>
                         <div class="form-group">
-                            <label>Nis</label>
-                            <input class="form-control" name="nis" type="text" placeholder="Masukkan Nis">
+                            <label>Select</label>
+                            <select class="form-control select2_demo_1" name="nis" id="selectExt" required>
+                                <option value="">-Pilih Santri-</option>
+                                <?php
+                                $sn = mysqli_query($conn, "SELECT * FROM tb_santri");
+                                while ($a = mysqli_fetch_assoc($sn)) { ?>
+                                    <option value="<?= $a['nis'] ?>"><?= $a['nis'] . ' - ' . $a['nama'] ?></option>
+                                <?php } ?> ?>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Tanggal</label>
                             <input class="form-control" name="tanggal" type="date" placeholder="Masukkan Tanggal">
-                        </div>
-                        <div class="form-group">
-                            <label>Jumlah Jual</label>
-                            <input class="form-control" name="jml_jual" type="text" placeholder="Masukkan Jumlah Jual">
-                        </div>
-                        <div class="form-group">
-                            <label>Total</label>
-                            <input class="form-control" name="total" type="text" placeholder="Masukkan Total">
-                        </div>
-                        <div class="form-group">
-                            <label>Bayar</label>
-                            <input class="form-control" name="bayar" type="text" placeholder="Masukkan Bayar">
-                        </div>
-                        <div class="form-group">
-                            <label>Kembali</label>
-                            <input class="form-control" name="kembali" type="text" placeholder="Masukkan Kembali">
                         </div>
                         <div class="form-group">
                             <button type="submit" value="submit" name="simpan" class="btn btn-default">Submit</button>

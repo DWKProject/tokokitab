@@ -3,20 +3,20 @@ include 'koneksi.php';
 include 'header.php';
 
 $kd = $_GET['kd'];
-$sql = mysqli_query($conn, "SELECT * FROM kolakan WHERE kd_kolakan = '$kd' ");
+$sql = mysqli_query($conn, "SELECT * FROM penjualan WHERE kd_jual = '$kd' ");
 
 $data = mysqli_fetch_assoc($sql);
-$kd_kolakan = $data['kd_kolakan'];
+$kd_jual = $data['kd_jual'];
 ?>
 
 <!-- START PAGE CONTENT-->
 <div class="page-heading">
-    <h1 class="page-title">Detail Kolakan</h1>
+    <h1 class="page-title">Detail penjualan</h1>
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="index.html"><i class="la la-home font-20"></i></a>
         </li>
-        <li class="breadcrumb-item">Detail Kolakan</li>
+        <li class="breadcrumb-item">Detail Penjualan</li>
     </ol>
 </div>
 <div class="page-content fade-in-up">
@@ -24,7 +24,7 @@ $kd_kolakan = $data['kd_kolakan'];
         <div class="col-md-6">
             <div class="ibox">
                 <div class="ibox-head">
-                    <div class="ibox-title">Kolakan</div>
+                    <div class="ibox-title">Penjualan</div>
                     <div class="ibox-tools">
                         <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                         <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
@@ -37,8 +37,8 @@ $kd_kolakan = $data['kd_kolakan'];
                 <div class="ibox-body">
                     <form>
                         <div class="form-group">
-                            <label>Kode Kolakan</label>
-                            <input class="form-control" type="text" value="<?= $data['kd_kolakan']; ?>" disabled>
+                            <label>Kode Penjualan</label>
+                            <input class="form-control" type="text" value="<?= $data['kd_jual']; ?>" disabled>
                         </div>
                         <div class="form-group">
                             <label>Tanggal</label>
@@ -60,9 +60,9 @@ $kd_kolakan = $data['kd_kolakan'];
                 <div class="ibox-body">
                     <form class="form-horizontal">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Jumlah Kolakan</label>
+                            <label class="col-sm-2 col-form-label">Jumlah Penjualan</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" value="<?= $data['jml_kolakan']; ?>" disabled>
+                                <input class="form-control" type="text" value="<?= $data['jml_jual']; ?>" disabled>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -82,7 +82,7 @@ $kd_kolakan = $data['kd_kolakan'];
         <div class="col-xl-7">
             <div class="ibox">
                 <div class="ibox-head">
-                    <div class="ibox-title">Kolakan</div>
+                    <div class="ibox-title">Penjualan</div>
                 </div>
                 <div class="ibox-body">
                     <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
@@ -98,7 +98,7 @@ $kd_kolakan = $data['kd_kolakan'];
                         <tbody>
                             <?php
                             $no = 1;
-                            $sql = mysqli_query($conn, "SELECT d.id_dtk, d.jumlah ,d.total , k.nama FROM detail_kolakan d JOIN kitab k ON d.kd_kitab = k.kd_kitab WHERE d.kd_kolakan = '$kd_kolakan' ");
+                            $sql = mysqli_query($conn, "SELECT d.id_dtj, d.jumlah ,d.total , k.nama FROM detail_jual d JOIN kitab k ON d.kd_kitab = k.kd_kitab WHERE d.kd_jual = '$kd_jual' ");
                             while ($data = mysqli_fetch_assoc($sql)) {
 
                             ?>
@@ -108,7 +108,7 @@ $kd_kolakan = $data['kd_kolakan'];
                                     <td><?= $data['jumlah']; ?></td>
                                     <td><?= rupiah($data['total']); ?></td>
                                     <td>
-                                        <a href="hapus_detail_kolakan.php?id=<?= $data['id_dtk']; ?>" onclick="return confirm('Yakin Akan Menghapus Data Ini ?')" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash font-14"></i></a>
+                                        <a href="hapus_detail_jual.php?id=<?= $data['id_dtj']; ?>" onclick="return confirm('Yakin Akan Menghapus Data Ini ?')" class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash font-14"></i></a>
                                     </td>
                                 </tr>
                             <?php
@@ -131,7 +131,7 @@ $kd_kolakan = $data['kd_kolakan'];
                 </div>
                 <div class="ibox-body">
                     <form class="form-horizontal" method="post">
-                        <input type="hidden" name="kd_kolakan" value="<?= $kd_kolakan; ?>">
+                        <input type="hidden" name="kd_jual" value="<?= $kd_jual; ?>">
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Pilih</label>
                             <div class="col-sm-10">
@@ -171,25 +171,25 @@ $kd_kolakan = $data['kd_kolakan'];
 if (isset($_POST['simpan'])) {
     $kd_kitab = $_POST['kd_kitab'];
     $jumlah = $_POST['jumlah'];
-    $kd_kolakan = $_POST['kd_kolakan'];
+    $kd_jual = $_POST['kd_jual'];
 
     $dtkitab = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM kitab WHERE kd_kitab = '$kd_kitab' "));
-    $total = $jumlah * $dtkitab['harga_kolak'];
+    $total = $jumlah * $dtkitab['harga_jual'];
 
-    $sql = mysqli_query($conn, "INSERT INTO detail_kolakan VALUES('', '$kd_kolakan', '$kd_kitab', '$jumlah', '$total')");
+    $sql = mysqli_query($conn, "INSERT INTO detail_jual VALUES('', '$kd_jual', '$kd_kitab', '$jumlah', '$total')");
 
-    $jmlKolak = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(jumlah) AS jmlKitab, SUM(total) AS totHarga FROM detail_kolakan WHERE kd_kolakan = '$kd_kolakan' "));
-    $jmlKitab = $jmlKolak['jmlKitab'];
-    $totHarga = $jmlKolak['totHarga'];
+    $jmljual = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(jumlah) AS jmlKitab, SUM(total) AS totHarga FROM detail_jual WHERE kd_jual = '$kd_jual' "));
+    $jmlKitab = $jmljual['jmlKitab'];
+    $totHarga = $jmljual['totHarga'];
 
-    $sql2 = mysqli_query($conn, "UPDATE kolakan SET jml_kolakan = '$jmlKitab', total = '$totHarga' WHERE kd_kolakan = '$kd_kolakan' ");
+    $sql2 = mysqli_query($conn, "UPDATE jual SET jml_jual = '$jmlKitab', total = '$totHarga' WHERE kd_jual = '$kd_jual' ");
     $sql3 = mysqli_query($conn, "UPDATE kitab SET stok = stok + '$jumlah' WHERE kd_kitab = '$kd_kitab' ");
 
     if ($sql && $sql2 && $sql3) {
         echo "
         <script type='text/javascript'>
             alert('Data Berhasil Di Simpan');
-            window.location.href = 'detail_kolakan.php?kd=" . $kd . "';
+            window.location.href = 'detail_jual.php?kd=" . $kd . "';
         </script>
         ";
     }

@@ -39,11 +39,11 @@
                             <td><?= $no++; ?></td>
                             <td><?= $data['kd_kolakan']; ?></td>
                             <td><?= $data['jml_kolakan']; ?></td>
-                            <td><?= $data['total']; ?></td>
+                            <td><?= rupiah($data['total']); ?></td>
                             <td><?= $data['tanggal']; ?></td>
                             <td>
-                                <a href="detail_kolakan.php?id=<?= $data['id_kolakan']; ?>" class="btn btn-warning btn-rounded center"><i class="fa fa-pencil"> </i></a>
-                                <a href="hapus_kolakan.php?id=<?= $data['id_kolakan']; ?>" onclick="return confirm('Yakin Akan Menghapus Data Ini ?')" class="btn btn-danger btn-rounded pull-right"><i class="fa fa-trash"> </i></a>
+                                <a href="detail_kolakan.php?kd=<?= $data['kd_kolakan']; ?>" class="btn btn-warning btn-rounded "><i class="fa fa-pencil"> </i> Detail</a>
+                                <!-- <a href="hapus_kolakan.php?id=<?= $data['id_kolakan']; ?>" onclick="return confirm('Yakin Akan Menghapus Data Ini ?')" class="btn btn-danger btn-rounded "><i class="fa fa-trash"> </i></a> -->
                             </td>
                         </tr>
                     <?php } ?>
