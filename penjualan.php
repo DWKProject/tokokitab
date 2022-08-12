@@ -50,11 +50,11 @@ include 'header.php';
                             <td><?= $data['nama'] ?></td>
                             <td><?= $data['tanggal'] ?></td>
                             <td><?= $data['jml_jual'] ?></td>
-                            <td><?= $data['total'] ?></td>
-                            <td><?= $data['bayar'] ?></td>
-                            <td><?= $data['kembali'] ?></td>
+                            <td><?= rupiah($data['total']) ?></td>
+                            <td><?= rupiah($data['bayar']) ?></td>
+                            <td><?= rupiah($data['kembali']) ?></td>
                             <td>
-                                <a href="detail_penjualan.php?id=<?= $data['id_jual']; ?>" class="btn btn-warning btn-rounded center"><i class="fa fa-pencil"> </i></a>
+                                <a href="detail_penjualan.php?kd=<?= $data['kd_jual']; ?>" class="btn btn-warning btn-rounded center"><i class="fa fa-pencil"> </i></a>
                                 <a href="hapus_penjualan.php?id=<?= $data['id_jual']; ?>" onclick="return confirm('Yakin Akan Menghapus Data Ini ?')" class="btn btn-danger btn-rounded "><i class="fa fa-trash"> </i></a>
                             </td>
                         </tr>

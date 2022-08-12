@@ -58,9 +58,9 @@ $kd_jual = $data['kd_jual'];
                     </div>
                 </div>
                 <div class="ibox-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="" method="POST" name="autoSumForm">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Jumlah Penjualan</label>
+                            <label class="col-sm-2 col-form-label">Jumlah </label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="text" value="<?= $data['jml_jual']; ?>" disabled>
                             </div>
@@ -68,12 +68,45 @@ $kd_jual = $data['kd_jual'];
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Total</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" value="<?= rupiah($data['total']); ?>" disabled>
+                                <input class="form-control" type="text" value="<?= rupiah($data['total']); ?>">
+                                <input type="hidden" name="total" value="<?= $data['total']; ?>" onFocus="startCalc();" onBlur="stopCalc();" disabled>
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Bayar </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" placeholder="Nominal Bayar" name="bayar" onFocus="startCalc();" onBlur="stopCalc();">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kembali</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" name="kembali" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12 ml-sm-auto">
+                                <button class="btn btn-info" name="majer" type="submit" value="submit">Bayar</button>
+                            </div>
                         </div>
                     </form>
+                    <script>
+                        function startCalc() {
+
+                            interval = setInterval("calc()", 1);
+                        }
+
+                        function calc() {
+                            total = document.autoSumForm.total.value;
+                            bayar = document.autoSumForm.bayar.value;
+                            document.autoSumForm.kembali.value = bayar - total;
+                        }
+
+                        function stopCalc() {
+
+                            clearInterval(interval);
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -98,7 +131,7 @@ $kd_jual = $data['kd_jual'];
                         <tbody>
                             <?php
                             $no = 1;
-                            $sql = mysqli_query($conn, "SELECT d.id_dtj, d.jumlah ,d.total , k.nama FROM detail_jual d JOIN kitab k ON d.kd_kitab = k.kd_kitab WHERE d.kd_jual = '$kd_jual' ");
+                            $sql = mysqli_query($conn, "SELECT d.id_dtj, d.jumlah ,d.total  , k.nama FROM detail_jual d JOIN kitab k ON d.kd_kitab = k.kd_kitab WHERE d.kd_jual = '$kd_jual' ");
                             while ($data = mysqli_fetch_assoc($sql)) {
 
                             ?>
@@ -152,6 +185,7 @@ $kd_jual = $data['kd_jual'];
                                 <input class="form-control" type="number" placeholder="Jumlah" name="jumlah">
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <div class="col-sm-12 ml-sm-auto">
                                 <button class="btn btn-info" type="submit" value="submit" name="simpan">Submit</button>
@@ -167,6 +201,12 @@ $kd_jual = $data['kd_jual'];
 
 
 <?php include 'footer.php'; ?>
+
+
+
+
+
+
 <?php
 if (isset($_POST['simpan'])) {
     $kd_kitab = $_POST['kd_kitab'];
@@ -175,21 +215,54 @@ if (isset($_POST['simpan'])) {
 
     $dtkitab = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM kitab WHERE kd_kitab = '$kd_kitab' "));
     $total = $jumlah * $dtkitab['harga_jual'];
+    $stok = $dtkitab['stok'];
 
-    $sql = mysqli_query($conn, "INSERT INTO detail_jual VALUES('', '$kd_jual', '$kd_kitab', '$jumlah', '$total')");
-
-    $jmljual = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(jumlah) AS jmlKitab, SUM(total) AS totHarga FROM detail_jual WHERE kd_jual = '$kd_jual' "));
-    $jmlKitab = $jmljual['jmlKitab'];
-    $totHarga = $jmljual['totHarga'];
-
-    $sql2 = mysqli_query($conn, "UPDATE jual SET jml_jual = '$jmlKitab', total = '$totHarga' WHERE kd_jual = '$kd_jual' ");
-    $sql3 = mysqli_query($conn, "UPDATE kitab SET stok = stok + '$jumlah' WHERE kd_kitab = '$kd_kitab' ");
-
-    if ($sql && $sql2 && $sql3) {
+    if ($stok < $jumlah) {
         echo "
         <script type='text/javascript'>
+            alert('Maaf Stok kitab tidak mencukupi');
+            window.location.href = 'detail_penjualan.php?kd=" . $kd . "';
+        </script>
+        ";
+    } else {
+        $sql = mysqli_query($conn, "INSERT INTO detail_jual VALUES('', '$kd_jual', '$kd_kitab', '$jumlah', '$total')");
+
+        $jmljual = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(jumlah) AS jmlKitab, SUM(total) AS totHarga FROM detail_jual WHERE kd_jual = '$kd_jual' "));
+
+        $jmlKitab = $jmljual['jmlKitab'];
+        $totHarga = $jmljual['totHarga'];
+
+        $sql2 = mysqli_query($conn, "UPDATE penjualan SET jml_jual = '$jmlKitab', total = '$totHarga' WHERE kd_jual = '$kd_jual' ");
+        $sql3 = mysqli_query($conn, "UPDATE kitab SET stok = stok - $jumlah WHERE kd_kitab = '$kd_kitab' ");
+        if ($sql && $sql2 && $sql3) {
+            echo "
+        <script type='text/javascript'>
             alert('Data Berhasil Di Simpan');
-            window.location.href = 'detail_jual.php?kd=" . $kd . "';
+            window.location.href = 'detail_penjualan.php?kd=" . $kd . "';
+        </script>
+        ";
+        }
+    }
+}
+
+if (isset($_POST['majer'])) {
+    $bayar = $_POST['bayar'];
+    $kembali = $_POST['kembali'];
+
+    $jmlbayar = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(bayar) AS NominalBayar, SUM(kembali) AS NominalKembali FROM penjualan WHERE kd_jual = '$kd_jual' "));
+
+    $NominalBayar = $jmlbayar['NominalBayar'];
+    $NominalKembali = $jmlbayar['NominalKembali'];
+
+    // $sql = mysqli_query($conn, "UPDATE penjualan SET jml_jual = '$jmlKitab', total = '$totHarga' WHERE kd_jual = '$kd_jual' ");
+    $sql = mysqli_query($conn, "UPDATE penjualan SET total = total - bayar = bayar , kembali = $kembali  WHERE kd_kitab = '$kd_kitab' ");
+    if ($sql) {
+
+
+        echo "
+        <script type='text/javascript'>
+            alert('Berhasil Di Bayar');
+            window.location.href = 'penjualan.php?kd=" . $kd . "';
         </script>
         ";
     }
