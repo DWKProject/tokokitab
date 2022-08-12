@@ -46,8 +46,8 @@
                             <td><?= rupiah($data['harga_jual']); ?></td>
                             <td><?= $data['gambar']; ?></td>
                             <td>
-                                <a href="edit_kitab.php?id=<?= $data['id_kitab']; ?>" class="btn btn-warning "><i class="fa fa-pencil"></i></a>
-                                <a href="<?= 'hapus_kitab.php?id_kitab=' . $data['id_kitab'] ?>" onclick="return confirm('Yakin Menghapus Data Ini?')" class="btn btn-danger "><i class="fa fa-times"></i></a>
+                                <a href="edit_kitab.php?id=<?= $data['id_kitab']; ?>" class="btn btn-warning  btn-rounded"><i class="fa fa-pencil"></i></a>
+                                <a href="<?= 'hapus_kitab.php?id_kitab=' . $data['id_kitab'] ?>" onclick="return confirm('Yakin Menghapus Data Ini?')" class="btn btn-danger btn-rounded "><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                     <?php } ?>

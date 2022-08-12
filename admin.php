@@ -40,8 +40,8 @@
                             <td><?= $data['username']; ?></td>
                             <td><?= $data['password']; ?></td>
                             <td>
-                                <a href="edit_admin.php?id=<?= $data['id_admin']; ?>" class="btn btn-warning "><i class="fa fa-pencil"></i></a>
-                                <a href="<?= 'hapus_admin.php?id=' . $data['id_admin'] ?>" onclick="return confirm('Yakin Menghapus Data Ini?')" class="btn btn-danger "><i class="fa fa-times"></i></a>
+                                <a href="edit_admin.php?id=<?= $data['id_admin']; ?>" class="btn btn-warning btn-rounded"><i class="fa fa-pencil"></i></a>
+                                <a href="<?= 'hapus_admin.php?id=' . $data['id_admin'] ?>" onclick="return confirm('Yakin Menghapus Data Ini?')" class="btn btn-danger btn-rounded "><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                     <?php } ?>
