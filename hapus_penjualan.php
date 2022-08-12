@@ -1,17 +1,26 @@
 <?php
 
 include 'koneksi.php';
-$id_jual = $_GET['id'];
-$jumlah = $_POST['jumlah'];
+$kd_jual = $_GET['kd'];
 
-$sql = mysqli_query($conn, "DELETE FROM penjualan WHERE id_jual = '$id_jual' ");
-$sql2 = mysqli_query($conn, "UPDATE kitab SET stok = stok - '$jumlah' WHERE kd_kitab = '$kd_kitab' ");
+$cek = mysqli_query($conn, "SELECT * FROM detail_jual WHERE kd_jual = '$kd_jual' ");
 
-if ($sql && $sql2) {
+if (mysqli_num_rows($cek) > 0) {
     echo "
+    <script>
+        alert('Maaf. Masih ada transaksi dengan kode penjaualan ini. Silahkan hapus terlebih dahulu');
+        window.location = 'penjualan.php';
+    </script>
+    ";
+} else {
+    $sql = mysqli_query($conn, "DELETE FROM penjualan WHERE kd_jual = '$kd_jual' ");
+
+    if ($sql) {
+        echo "
     <script>
         alert('Data Berhasil Di Hapus');
         window.location = 'penjualan.php';
     </script>
     ";
+    }
 }

@@ -248,15 +248,14 @@ if (isset($_POST['simpan'])) {
 if (isset($_POST['majer'])) {
     $bayar = $_POST['bayar'];
     $kembali = $_POST['kembali'];
+    $totalbayar = $_POST['total'];
 
-    $jmlbayar = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(bayar) AS NominalBayar, SUM(kembali) AS NominalKembali FROM penjualan WHERE kd_jual = '$kd_jual' "));
 
-    $NominalBayar = $jmlbayar['NominalBayar'];
-    $NominalKembali = $jmlbayar['NominalKembali'];
+    $sql = mysqli_query($conn, "UPDATE penjualan SET bayar = $bayar, kembali = $kembali  WHERE kd_jual = '$kd_jual' ");
+    $sql2 = mysqli_query($conn, "UPDATE penjualan SET bayar = bayar - $totalbayar WHERE kd_kitab = '$kd_kitab' ");
 
-    // $sql = mysqli_query($conn, "UPDATE penjualan SET jml_jual = '$jmlKitab', total = '$totHarga' WHERE kd_jual = '$kd_jual' ");
-    $sql = mysqli_query($conn, "UPDATE penjualan SET total = total - bayar = bayar , kembali = $kembali  WHERE kd_kitab = '$kd_kitab' ");
-    if ($sql) {
+
+    if ($sql && $sql2) {
 
 
         echo "

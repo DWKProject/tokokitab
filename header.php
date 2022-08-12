@@ -191,7 +191,7 @@
                         <img src="./assets/img/admin-avatar.png" width="45px" />
                     </div>
                     <div class="admin-info">
-                        <div class="font-strong">James Brown</div><small>Administrator</small>
+                        <div class="font-strong">SMKDWK</div><small>Project</small>
                     </div>
                 </div>
                 <ul class="side-menu metismenu">
@@ -207,6 +207,11 @@
 
 
                     <li class="heading">PAGES</li>
+                    <li>
+                        <a href="admin.php"><i class="sidebar-item-icon fa fa-user"></i>
+                            <span class="nav-label">Data Admin</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="santri.php"><i class="sidebar-item-icon fa fa-users"></i>
                             <span class="nav-label">Data Santri</span>

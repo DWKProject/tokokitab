@@ -55,7 +55,7 @@ include 'header.php';
                             <td><?= rupiah($data['kembali']) ?></td>
                             <td>
                                 <a href="detail_penjualan.php?kd=<?= $data['kd_jual']; ?>" class="btn btn-warning btn-rounded center"><i class="fa fa-pencil"> </i></a>
-                                <a href="hapus_penjualan.php?id=<?= $data['id_jual']; ?>" onclick="return confirm('Yakin Akan Menghapus Data Ini ?')" class="btn btn-danger btn-rounded "><i class="fa fa-trash"> </i></a>
+                                <a href="hapus_penjualan.php?kd=<?= $data['kd_jual']; ?>" onclick="return confirm('Yakin Akan Menghapus Data Ini ?')" class="btn btn-danger btn-rounded "><i class="fa fa-trash"> </i></a>
                             </td>
                         </tr>
                     <?php } ?>
