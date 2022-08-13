@@ -1,4 +1,15 @@
-<?php include 'header.php'; ?>
+<?php
+include 'header.php';
+include 'koneksi.php';
+
+$santri = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM tb_santri"));
+//echo $santri;
+
+$kitab = mysqli_num_rows(mysqli_query($conn, "SELECT *, COUNT( * ) AS total FROM kitab GROUP BY id_kitab"));
+//echo $kitab;
+
+
+?>
 <!-- START PAGE CONTENT-->
 <div class="page-heading">
     <h1 class="page-title">DataTables</h1>
@@ -14,18 +25,24 @@
         <div class="col-lg-3 col-md-6">
             <div class="ibox bg-success color-white widget-stat">
                 <div class="ibox-body">
-                    <h2 class="m-b-5 font-strong">201</h2>
-                    <div class="m-b-5">NEW ORDERS</div><i class="ti-shopping-cart widget-stat-icon"></i>
-                    <div><i class="fa fa-level-up m-r-5"></i><small>25% higher</small></div>
+                    <h2 class="m-b-5 font-strong"><?php echo $santri; ?></h2>
+                    <div class="m-b-5">Santri</div><i class="ti-user widget-stat-icon"></i>
+                    <div><a href="santri.php" class="small-box-footer color-white ">
+                            Lihat Selengkapnya <i class="fa fa-arrow-circle-right color-white"></i>
+                        </a></div>
+
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
             <div class="ibox bg-info color-white widget-stat">
                 <div class="ibox-body">
-                    <h2 class="m-b-5 font-strong">1250</h2>
-                    <div class="m-b-5">UNIQUE VIEWS</div><i class="ti-bar-chart widget-stat-icon"></i>
-                    <div><i class="fa fa-level-up m-r-5"></i><small>17% higher</small></div>
+                    <h2 class="m-b-5 font-strong"><?php echo $kitab; ?></h2>
+                    <div class="m-b-5">Kitab</div><i class="ti-book widget-stat-icon"></i>
+                    <div> <a href="kitab.php" class="small-box-footer color-white ">
+                            Lihat Selengkapnya <i class="fa fa-arrow-circle-right color-white"></i>
+                        </a></div>
+
                 </div>
             </div>
         </div>

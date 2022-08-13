@@ -196,7 +196,7 @@
                 </div>
                 <ul class="side-menu metismenu">
                     <li>
-                        <a class="active" href="index.php"><i class="sidebar-item-icon fa fa-th-large"></i>
+                        <a class="active" href="media.php"><i class="sidebar-item-icon fa fa-th-large"></i>
                             <span class="nav-label">Dashboard</span>
                         </a>
                     </li>
